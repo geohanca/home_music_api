@@ -1,0 +1,15 @@
+version: '3'
+services:
+    songapi:
+        build:
+            context: ./app
+            dockerfile: ./Dockerfile
+        command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py initadmin && python manage.py runserver 0.0.0.0:8000"
+        ports:
+            - "9070:8000"
+        restart: unless-stopped
+
+networks:
+    default:
+        external:
+            name: dockernetwork1
